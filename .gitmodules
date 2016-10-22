@@ -4,3 +4,6 @@
 [submodule "vendor/github.com/apache/thrift"]
 	path = vendor/github.com/apache/thrift
 	url = https://github.com/apache/thrift
+[submodule "vendor/github.com/agrea/goptr"]
+	path = vendor/github.com/agrea/goptr
+	url = https://github.com/agrea/goptr
