@@ -33,3 +33,19 @@ func (f *Feature) DeserializeThrift(feature *flipd.Feature) error {
 
 	return nil
 }
+
+// SerializeThrift converts a feature to a Thrift feature object.
+func (f *Feature) SerializeThrift() (*flipd.Feature, error) {
+	if f.Key == "" {
+		return nil, errors.New("missing required key attribute")
+	}
+
+	feature := flipd.NewFeature()
+	feature.Key = flipd.KeyPtr(flipd.Key(f.Key))
+
+	if f.Status != 0 {
+		feature.Status = flipd.FeatureStatus(f.Status)
+	}
+
+	return feature, nil
+}
