@@ -1,9 +1,10 @@
-package storage
+package inmemory
 
 import (
 	"testing"
 
 	"github.com/agrea/goptr"
+	"github.com/sebdah/flipd/source/storage"
 	"github.com/sebdah/flipd/source/types"
 )
 
@@ -28,12 +29,12 @@ func TestInMemoryBackendDeregisterFeature(t *testing.T) {
 				&types.Feature{Key: "b:abd", Status: types.FeatureStatusDisabled},
 			},
 			key:         "new:key",
-			expectedErr: ErrNotFound,
+			expectedErr: storage.ErrNotFound,
 		},
 	}
 
 	for _, test := range tests {
-		backend := NewInMemoryBackend()
+		backend := New()
 
 		for _, feature := range test.features {
 			backend.Register(feature)
@@ -50,8 +51,8 @@ func TestInMemoryBackendDeregisterFeature(t *testing.T) {
 		}
 
 		_, err = backend.Get(goptr.String(test.key))
-		if !IsErrNotFound(err) {
-			t.Errorf("expected %s, got %s", ErrNotFound.Error(), err.Error())
+		if !storage.IsErrNotFound(err) {
+			t.Errorf("expected %s, got %s", storage.ErrNotFound.Error(), err.Error())
 		}
 	}
 }
@@ -76,12 +77,12 @@ func TestInMemoryBackendGetFeature(t *testing.T) {
 				&types.Feature{Key: "some:abc", Status: types.FeatureStatusDisabled},
 			},
 			key:         "other:key",
-			expectedErr: ErrNotFound,
+			expectedErr: storage.ErrNotFound,
 		},
 	}
 
 	for _, test := range tests {
-		backend := NewInMemoryBackend()
+		backend := New()
 
 		for _, feature := range test.features {
 			backend.Register(feature)
@@ -107,7 +108,7 @@ func TestInMemoryBackendRegisterFeature(t *testing.T) {
 	feature1 := &types.Feature{Key: "some:key", Status: types.FeatureStatusEnabled}
 	feature2 := &types.Feature{Key: "some:abc", Status: types.FeatureStatusEnabled}
 
-	backend := NewInMemoryBackend()
+	backend := New()
 
 	err := backend.Register(feature1)
 	if err != nil {
@@ -115,7 +116,7 @@ func TestInMemoryBackendRegisterFeature(t *testing.T) {
 	}
 
 	err = backend.Register(feature1)
-	if !IsErrDuplicate(err) {
+	if !storage.IsErrDuplicate(err) {
 		switch {
 		case err == nil:
 			t.Error("expected duplication error, got nil")
@@ -153,12 +154,12 @@ func TestInMemoryBackendSetStatus(t *testing.T) {
 			},
 			key:         "other:key",
 			status:      types.FeatureStatusDisabled,
-			expectedErr: ErrNotFound,
+			expectedErr: storage.ErrNotFound,
 		},
 	}
 
 	for _, test := range tests {
-		backend := NewInMemoryBackend()
+		backend := New()
 
 		for _, feature := range test.features {
 			backend.Register(feature)

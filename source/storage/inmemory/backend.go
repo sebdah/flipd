@@ -1,6 +1,9 @@
-package storage
+package inmemory
 
-import "github.com/sebdah/flipd/source/types"
+import (
+	"github.com/sebdah/flipd/source/storage"
+	"github.com/sebdah/flipd/source/types"
+)
 
 // InMemoryBackend stores feature information in memory.
 type InMemoryBackend struct {
@@ -8,8 +11,8 @@ type InMemoryBackend struct {
 	features []types.Feature
 }
 
-// NewInMemoryBackend instanciates the memory backend.
-func NewInMemoryBackend() *InMemoryBackend { return &InMemoryBackend{} }
+// New instanciates the memory backend.
+func New() *InMemoryBackend { return &InMemoryBackend{} }
 
 // Deregister removes a feature from the storage.
 //
@@ -23,7 +26,7 @@ func (m *InMemoryBackend) Deregister(key *string) error {
 		}
 	}
 
-	return ErrNotFound
+	return storage.ErrNotFound
 }
 
 // Get a feature from the storage.
@@ -37,7 +40,7 @@ func (m *InMemoryBackend) Get(key *string) (*types.Feature, error) {
 		}
 	}
 
-	return nil, ErrNotFound
+	return nil, storage.ErrNotFound
 }
 
 // Register adds a new feature to the storage.
@@ -48,7 +51,7 @@ func (m *InMemoryBackend) Get(key *string) (*types.Feature, error) {
 func (m *InMemoryBackend) Register(feature *types.Feature) error {
 	for _, f := range m.features {
 		if feature.Key == f.Key {
-			return ErrDuplicate
+			return storage.ErrDuplicate
 		}
 	}
 
@@ -69,5 +72,5 @@ func (m *InMemoryBackend) SetStatus(key *string, status *int64) error {
 		}
 	}
 
-	return ErrNotFound
+	return storage.ErrNotFound
 }
