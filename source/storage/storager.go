@@ -7,6 +7,9 @@ type Storager interface {
 	// Get returns a feature given it's key.
 	Get(*string) (*types.Feature, error)
 
+	// GetAll returns all registered features.
+	GetAll() ([]*types.Feature, error)
+
 	// Deregister removes a key from the data store.
 	Deregister(*string) error
 

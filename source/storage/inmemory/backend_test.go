@@ -104,6 +104,41 @@ func TestInMemoryBackendGetFeature(t *testing.T) {
 	}
 }
 
+func TestInMemoryBackendGetAllFeature(t *testing.T) {
+	tests := []struct {
+		features []*types.Feature
+	}{
+		{
+			features: []*types.Feature{
+				&types.Feature{Key: "some:key", Status: types.FeatureStatusEnabled},
+				&types.Feature{Key: "some:abc", Status: types.FeatureStatusDisabled},
+				&types.Feature{Key: "other:abc", Status: types.FeatureStatusDisabled},
+				&types.Feature{Key: "my:key", Status: types.FeatureStatusEnabled},
+			},
+		},
+		{
+			features: []*types.Feature{},
+		},
+	}
+
+	for _, test := range tests {
+		backend := New()
+
+		for _, feature := range test.features {
+			backend.Register(feature)
+		}
+
+		result, err := backend.GetAll()
+		if err != nil {
+			t.Errorf("expected nil, got %s", err.Error())
+		}
+
+		if len(result) != len(test.features) {
+			t.Errorf("expected %d items in the result, got %d", len(test.features), len(result))
+		}
+	}
+}
+
 func TestInMemoryBackendRegisterFeature(t *testing.T) {
 	feature1 := &types.Feature{Key: "some:key", Status: types.FeatureStatusEnabled}
 	feature2 := &types.Feature{Key: "some:abc", Status: types.FeatureStatusEnabled}

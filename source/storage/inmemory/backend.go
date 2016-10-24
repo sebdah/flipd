@@ -43,6 +43,17 @@ func (m *InMemoryBackend) Get(key *string) (*types.Feature, error) {
 	return nil, storage.ErrNotFound
 }
 
+// GetAll returns all features from the storage.
+func (m *InMemoryBackend) GetAll() ([]*types.Feature, error) {
+	var features []*types.Feature
+
+	for i := range m.features {
+		features = append(features, &m.features[i])
+	}
+
+	return features, nil
+}
+
 // Register adds a new feature to the storage.
 //
 // Exceptions:
