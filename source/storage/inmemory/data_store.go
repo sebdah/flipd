@@ -5,23 +5,23 @@ import (
 	"github.com/sebdah/flipd/source/types"
 )
 
-// InMemoryBackend stores feature information in memory.
-type InMemoryBackend struct {
+// DataStore stores feature information in memory.
+type DataStore struct {
 	// features stored in memory.
 	features []types.Feature
 }
 
 // New instanciates the memory backend.
-func New() *InMemoryBackend { return &InMemoryBackend{} }
+func New() *DataStore { return &DataStore{} }
 
 // Deregister removes a feature from the storage.
 //
 // Exceptions:
 //  - NotFound error thrown if the key does not exist
-func (m *InMemoryBackend) Deregister(key *string) error {
-	for i, f := range m.features {
+func (d *DataStore) Deregister(key *string) error {
+	for i, f := range d.features {
 		if *key == f.Key {
-			m.features = append(m.features[:i], m.features[i+1:]...)
+			d.features = append(d.features[:i], d.features[i+1:]...)
 			return nil
 		}
 	}
@@ -33,8 +33,8 @@ func (m *InMemoryBackend) Deregister(key *string) error {
 //
 // Exceptions:
 //  - NotFound error thrown if the key does not exist
-func (m *InMemoryBackend) Get(key *string) (*types.Feature, error) {
-	for _, f := range m.features {
+func (d *DataStore) Get(key *string) (*types.Feature, error) {
+	for _, f := range d.features {
 		if f.Key == *key {
 			return &f, nil
 		}
@@ -44,11 +44,11 @@ func (m *InMemoryBackend) Get(key *string) (*types.Feature, error) {
 }
 
 // GetAll returns all features from the storage.
-func (m *InMemoryBackend) GetAll() ([]*types.Feature, error) {
+func (d *DataStore) GetAll() ([]*types.Feature, error) {
 	var features []*types.Feature
 
-	for i := range m.features {
-		features = append(features, &m.features[i])
+	for i := range d.features {
+		features = append(features, &d.features[i])
 	}
 
 	return features, nil
@@ -59,14 +59,14 @@ func (m *InMemoryBackend) GetAll() ([]*types.Feature, error) {
 // Exceptions:
 //  - Duplicate error is thrown if another feature with the same key already
 //    exists.
-func (m *InMemoryBackend) Register(feature *types.Feature) error {
-	for _, f := range m.features {
+func (d *DataStore) Register(feature *types.Feature) error {
+	for _, f := range d.features {
 		if feature.Key == f.Key {
 			return storage.ErrDuplicate
 		}
 	}
 
-	m.features = append(m.features, *feature)
+	d.features = append(d.features, *feature)
 
 	return nil
 }
@@ -75,10 +75,10 @@ func (m *InMemoryBackend) Register(feature *types.Feature) error {
 //
 // Exceptions:
 //  - NotFound error thrown if the key does not exist
-func (m *InMemoryBackend) SetStatus(key *string, status *int64) error {
-	for i := range m.features {
-		if m.features[i].Key == *key {
-			m.features[i].Status = *status
+func (d *DataStore) SetStatus(key *string, status *int64) error {
+	for i := range d.features {
+		if d.features[i].Key == *key {
+			d.features[i].Status = *status
 			return nil
 		}
 	}

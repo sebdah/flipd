@@ -34,13 +34,13 @@ func TestDeregisterFeature(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		backend := New()
+		dataStore := New()
 
 		for _, feature := range test.features {
-			backend.Register(feature)
+			dataStore.Register(feature)
 		}
 
-		err := backend.Deregister(goptr.String(test.key))
+		err := dataStore.Deregister(goptr.String(test.key))
 		if err != test.expectedErr {
 			switch {
 			case test.expectedErr == nil:
@@ -50,7 +50,7 @@ func TestDeregisterFeature(t *testing.T) {
 			}
 		}
 
-		_, err = backend.Get(goptr.String(test.key))
+		_, err = dataStore.Get(goptr.String(test.key))
 		if !storage.IsErrNotFound(err) {
 			t.Errorf("expected %s, got %s", storage.ErrNotFound.Error(), err.Error())
 		}
@@ -82,13 +82,13 @@ func TestGetFeature(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		backend := New()
+		dataStore := New()
 
 		for _, feature := range test.features {
-			backend.Register(feature)
+			dataStore.Register(feature)
 		}
 
-		feature, err := backend.Get(goptr.String(test.key))
+		feature, err := dataStore.Get(goptr.String(test.key))
 		if err != test.expectedErr {
 			switch {
 			case test.expectedErr == nil:
@@ -122,13 +122,13 @@ func TestGetAllFeature(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		backend := New()
+		dataStore := New()
 
 		for _, feature := range test.features {
-			backend.Register(feature)
+			dataStore.Register(feature)
 		}
 
-		result, err := backend.GetAll()
+		result, err := dataStore.GetAll()
 		if err != nil {
 			t.Errorf("expected nil, got %s", err.Error())
 		}
@@ -143,14 +143,14 @@ func TestRegisterFeature(t *testing.T) {
 	feature1 := &types.Feature{Key: "some:key", Status: types.FeatureStatusEnabled}
 	feature2 := &types.Feature{Key: "some:abc", Status: types.FeatureStatusEnabled}
 
-	backend := New()
+	dataStore := New()
 
-	err := backend.Register(feature1)
+	err := dataStore.Register(feature1)
 	if err != nil {
 		t.Errorf("expected nil, got %s", err.Error())
 	}
 
-	err = backend.Register(feature1)
+	err = dataStore.Register(feature1)
 	if !storage.IsErrDuplicate(err) {
 		switch {
 		case err == nil:
@@ -160,7 +160,7 @@ func TestRegisterFeature(t *testing.T) {
 		}
 	}
 
-	err = backend.Register(feature2)
+	err = dataStore.Register(feature2)
 	if err != nil {
 		t.Errorf("expected nil, got %s", err.Error())
 	}
@@ -194,13 +194,13 @@ func TestSetStatus(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		backend := New()
+		dataStore := New()
 
 		for _, feature := range test.features {
-			backend.Register(feature)
+			dataStore.Register(feature)
 		}
 
-		err := backend.SetStatus(goptr.String(test.key), goptr.Int64(test.status))
+		err := dataStore.SetStatus(goptr.String(test.key), goptr.Int64(test.status))
 		if err != test.expectedErr {
 			switch {
 			case test.expectedErr == nil:
@@ -211,7 +211,7 @@ func TestSetStatus(t *testing.T) {
 		}
 
 		if test.expectedErr == nil {
-			feature, err := backend.Get(goptr.String(test.key))
+			feature, err := dataStore.Get(goptr.String(test.key))
 			if err != nil {
 				t.Errorf("expected nil, got %s", err.Error())
 			}
