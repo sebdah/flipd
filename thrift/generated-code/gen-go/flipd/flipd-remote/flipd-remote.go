@@ -20,8 +20,9 @@ func Usage() {
 	fmt.Fprintln(os.Stderr, "Usage of ", os.Args[0], " [-h host:port] [-u url] [-f[ramed]] function [arg1 [arg2...]]:")
 	flag.PrintDefaults()
 	fmt.Fprintln(os.Stderr, "\nFunctions:")
-	fmt.Fprintln(os.Stderr, "  string ping()")
+	fmt.Fprintln(os.Stderr, "  void deregisterFeature(DeregisterFeatureRequest request)")
 	fmt.Fprintln(os.Stderr, "  GetFeaturesResponse getFeatures(GetFeaturesRequest request)")
+	fmt.Fprintln(os.Stderr, "  string ping()")
 	fmt.Fprintln(os.Stderr, "  void registerFeature(RegisterFeatureRequest request)")
 	fmt.Fprintln(os.Stderr)
 	os.Exit(0)
@@ -117,6 +118,56 @@ func main() {
 	}
 
 	switch cmd {
+	case "deregisterFeature":
+		if flag.NArg()-1 != 1 {
+			fmt.Fprintln(os.Stderr, "DeregisterFeature requires 1 args")
+			flag.Usage()
+		}
+		arg12 := flag.Arg(1)
+		mbTrans13 := thrift.NewTMemoryBufferLen(len(arg12))
+		defer mbTrans13.Close()
+		_, err14 := mbTrans13.WriteString(arg12)
+		if err14 != nil {
+			Usage()
+			return
+		}
+		factory15 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt16 := factory15.GetProtocol(mbTrans13)
+		argvalue0 := flipd.NewDeregisterFeatureRequest()
+		err17 := argvalue0.Read(jsProt16)
+		if err17 != nil {
+			Usage()
+			return
+		}
+		value0 := argvalue0
+		fmt.Print(client.DeregisterFeature(value0))
+		fmt.Print("\n")
+		break
+	case "getFeatures":
+		if flag.NArg()-1 != 1 {
+			fmt.Fprintln(os.Stderr, "GetFeatures requires 1 args")
+			flag.Usage()
+		}
+		arg18 := flag.Arg(1)
+		mbTrans19 := thrift.NewTMemoryBufferLen(len(arg18))
+		defer mbTrans19.Close()
+		_, err20 := mbTrans19.WriteString(arg18)
+		if err20 != nil {
+			Usage()
+			return
+		}
+		factory21 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt22 := factory21.GetProtocol(mbTrans19)
+		argvalue0 := flipd.NewGetFeaturesRequest()
+		err23 := argvalue0.Read(jsProt22)
+		if err23 != nil {
+			Usage()
+			return
+		}
+		value0 := argvalue0
+		fmt.Print(client.GetFeatures(value0))
+		fmt.Print("\n")
+		break
 	case "ping":
 		if flag.NArg()-1 != 0 {
 			fmt.Fprintln(os.Stderr, "Ping requires 0 args")
@@ -125,49 +176,24 @@ func main() {
 		fmt.Print(client.Ping())
 		fmt.Print("\n")
 		break
-	case "getFeatures":
-		if flag.NArg()-1 != 1 {
-			fmt.Fprintln(os.Stderr, "GetFeatures requires 1 args")
-			flag.Usage()
-		}
-		arg10 := flag.Arg(1)
-		mbTrans11 := thrift.NewTMemoryBufferLen(len(arg10))
-		defer mbTrans11.Close()
-		_, err12 := mbTrans11.WriteString(arg10)
-		if err12 != nil {
-			Usage()
-			return
-		}
-		factory13 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt14 := factory13.GetProtocol(mbTrans11)
-		argvalue0 := flipd.NewGetFeaturesRequest()
-		err15 := argvalue0.Read(jsProt14)
-		if err15 != nil {
-			Usage()
-			return
-		}
-		value0 := argvalue0
-		fmt.Print(client.GetFeatures(value0))
-		fmt.Print("\n")
-		break
 	case "registerFeature":
 		if flag.NArg()-1 != 1 {
 			fmt.Fprintln(os.Stderr, "RegisterFeature requires 1 args")
 			flag.Usage()
 		}
-		arg16 := flag.Arg(1)
-		mbTrans17 := thrift.NewTMemoryBufferLen(len(arg16))
-		defer mbTrans17.Close()
-		_, err18 := mbTrans17.WriteString(arg16)
-		if err18 != nil {
+		arg24 := flag.Arg(1)
+		mbTrans25 := thrift.NewTMemoryBufferLen(len(arg24))
+		defer mbTrans25.Close()
+		_, err26 := mbTrans25.WriteString(arg24)
+		if err26 != nil {
 			Usage()
 			return
 		}
-		factory19 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt20 := factory19.GetProtocol(mbTrans17)
+		factory27 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt28 := factory27.GetProtocol(mbTrans25)
 		argvalue0 := flipd.NewRegisterFeatureRequest()
-		err21 := argvalue0.Read(jsProt20)
-		if err21 != nil {
+		err29 := argvalue0.Read(jsProt28)
+		if err29 != nil {
 			Usage()
 			return
 		}

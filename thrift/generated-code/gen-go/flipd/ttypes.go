@@ -226,6 +226,109 @@ func (p *Feature) String() string {
 // /****************************************************
 //
 // Attributes:
+//  - Key
+type DeregisterFeatureRequest struct {
+	Key *Key `thrift:"key,1" json:"key,omitempty"`
+}
+
+func NewDeregisterFeatureRequest() *DeregisterFeatureRequest {
+	return &DeregisterFeatureRequest{}
+}
+
+var DeregisterFeatureRequest_Key_DEFAULT Key
+
+func (p *DeregisterFeatureRequest) GetKey() Key {
+	if !p.IsSetKey() {
+		return DeregisterFeatureRequest_Key_DEFAULT
+	}
+	return *p.Key
+}
+func (p *DeregisterFeatureRequest) IsSetKey() bool {
+	return p.Key != nil
+}
+
+func (p *DeregisterFeatureRequest) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if err := p.readField1(iprot); err != nil {
+				return err
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *DeregisterFeatureRequest) readField1(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return thrift.PrependError("error reading field 1: ", err)
+	} else {
+		temp := Key(v)
+		p.Key = &temp
+	}
+	return nil
+}
+
+func (p *DeregisterFeatureRequest) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("DeregisterFeatureRequest"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if err := p.writeField1(oprot); err != nil {
+		return err
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *DeregisterFeatureRequest) writeField1(oprot thrift.TProtocol) (err error) {
+	if p.IsSetKey() {
+		if err := oprot.WriteFieldBegin("key", thrift.STRING, 1); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:key: ", p), err)
+		}
+		if err := oprot.WriteString(string(*p.Key)); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T.key (1) field write error: ", p), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 1:key: ", p), err)
+		}
+	}
+	return err
+}
+
+func (p *DeregisterFeatureRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("DeregisterFeatureRequest(%+v)", *p)
+}
+
+// Attributes:
 //  - Features
 type GetFeaturesResponse struct {
 	Features []*Feature `thrift:"features,1" json:"features,omitempty"`
@@ -887,5 +990,111 @@ func (p *InvalidInputException) String() string {
 }
 
 func (p *InvalidInputException) Error() string {
+	return p.String()
+}
+
+// Attributes:
+//  - Message
+type NotFoundException struct {
+	Message *string `thrift:"message,1" json:"message,omitempty"`
+}
+
+func NewNotFoundException() *NotFoundException {
+	return &NotFoundException{}
+}
+
+var NotFoundException_Message_DEFAULT string
+
+func (p *NotFoundException) GetMessage() string {
+	if !p.IsSetMessage() {
+		return NotFoundException_Message_DEFAULT
+	}
+	return *p.Message
+}
+func (p *NotFoundException) IsSetMessage() bool {
+	return p.Message != nil
+}
+
+func (p *NotFoundException) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if err := p.readField1(iprot); err != nil {
+				return err
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *NotFoundException) readField1(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return thrift.PrependError("error reading field 1: ", err)
+	} else {
+		p.Message = &v
+	}
+	return nil
+}
+
+func (p *NotFoundException) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("NotFoundException"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if err := p.writeField1(oprot); err != nil {
+		return err
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *NotFoundException) writeField1(oprot thrift.TProtocol) (err error) {
+	if p.IsSetMessage() {
+		if err := oprot.WriteFieldBegin("message", thrift.STRING, 1); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:message: ", p), err)
+		}
+		if err := oprot.WriteString(string(*p.Message)); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T.message (1) field write error: ", p), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 1:message: ", p), err)
+		}
+	}
+	return err
+}
+
+func (p *NotFoundException) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("NotFoundException(%+v)", *p)
+}
+
+func (p *NotFoundException) Error() string {
 	return p.String()
 }

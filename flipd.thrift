@@ -42,6 +42,12 @@ struct Feature {
 *               Requests and responses
 /*****************************************************/
 
+// DeregisterFeatureRequest is used when deregistering features in the service.
+struct DeregisterFeatureRequest {
+    // Feature holds the definition of the new feature to be registered.
+    1: optional Key key
+}
+
 // GetFeaturesResponse is the response object returned when requesting a list
 // of features registered with the flipd service.
 struct GetFeaturesResponse {
@@ -56,7 +62,7 @@ struct GetFeaturesRequest {
     // returned. If the keys does not exist, they are silently ignored.
     //
     // Default:     None
-    // Required:    False
+    // Required:    True
     1: optional list<Key> keys
 }
 
@@ -89,22 +95,33 @@ exception InvalidInputException {
     1: optional string message
 }
 
+// NotFound is thrown if the requested entity does not exist.
+exception NotFoundException {
+    1: optional string message
+}
+
 /******************************************************
 *                    Services
 /*****************************************************/
 service flipd {
-    // ping returns a basic string, "pong". Can be used to check if the service
-    // is up.
-    string ping()
+    // deregisterFeature removes a feature from the flipd service.
+    void deregisterFeature(1: DeregisterFeatureRequest request)
+        throws (
+            1: InternalErrorException internalError
+            2: InvalidInputException InvalidInput
+            3: NotFoundException notFound)
 
     // getFeatures returns a list of features registered with the flipd
     // service.
     //
-    // If the namespace is not provided, all namespaces and features will be
-    // returned.
+    // If no keys are provided, all features will be returned.
     GetFeaturesResponse getFeatures(1: GetFeaturesRequest request)
         throws (
             1: InternalErrorException internalError)
+
+    // ping returns a basic string, "pong". Can be used to check if the service
+    // is up.
+    string ping()
 
     // registerFeature adds new features to the flipd service.
     void registerFeature(1: RegisterFeatureRequest request)
