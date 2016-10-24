@@ -8,7 +8,7 @@ import (
 	"github.com/sebdah/flipd/source/types"
 )
 
-func TestInMemoryBackendDeregisterFeature(t *testing.T) {
+func TestDeregisterFeature(t *testing.T) {
 	tests := []struct {
 		features    []*types.Feature
 		key         string
@@ -57,7 +57,7 @@ func TestInMemoryBackendDeregisterFeature(t *testing.T) {
 	}
 }
 
-func TestInMemoryBackendGetFeature(t *testing.T) {
+func TestGetFeature(t *testing.T) {
 	tests := []struct {
 		features    []*types.Feature
 		key         string
@@ -104,7 +104,7 @@ func TestInMemoryBackendGetFeature(t *testing.T) {
 	}
 }
 
-func TestInMemoryBackendGetAllFeature(t *testing.T) {
+func TestGetAllFeature(t *testing.T) {
 	tests := []struct {
 		features []*types.Feature
 	}{
@@ -139,7 +139,7 @@ func TestInMemoryBackendGetAllFeature(t *testing.T) {
 	}
 }
 
-func TestInMemoryBackendRegisterFeature(t *testing.T) {
+func TestRegisterFeature(t *testing.T) {
 	feature1 := &types.Feature{Key: "some:key", Status: types.FeatureStatusEnabled}
 	feature2 := &types.Feature{Key: "some:abc", Status: types.FeatureStatusEnabled}
 
@@ -166,7 +166,7 @@ func TestInMemoryBackendRegisterFeature(t *testing.T) {
 	}
 }
 
-func TestInMemoryBackendSetStatus(t *testing.T) {
+func TestSetStatus(t *testing.T) {
 	tests := []struct {
 		features    []*types.Feature
 		key         string
