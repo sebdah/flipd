@@ -34,7 +34,7 @@ generate-thrift:
 .PHONY: lint
 lint:
 	$(info --- Running lint checks)
-	@docker-compose run $(SERVICE) gometalinter --enable=misspell --disable=gotype --disable=ineffassign --fast ./source/... ; exit 0
+	@docker-compose run $(SERVICE) gometalinter --enable=misspell --cyclo-over=15 --disable=gotype --disable=ineffassign --fast ./source/... ; exit 0
 
 .PHONY: teardown
 teardown:
