@@ -27,8 +27,9 @@ func init() {
 func main() {
 	logrus.WithFields(logrus.Fields{
 		"environment": config.Environment,
+		"host":        config.Host,
 		"port":        config.Port,
-	}).Info("Starting flipd")
+	}).Info("Starting flipd thrift service")
 
 	storage := inmemory.New()
 
