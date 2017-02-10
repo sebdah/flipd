@@ -21,7 +21,7 @@ func TestGetFeatures(t *testing.T) {
 		_ = backend.Register(feature)
 	}
 
-	service := NewFlipd(backend)
+	service := NewHandler(backend)
 
 	tests := []struct {
 		keys        []string

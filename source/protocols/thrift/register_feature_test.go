@@ -9,7 +9,7 @@ import (
 )
 
 func TestRegisterFeature(t *testing.T) {
-	service := NewFlipd(inmemory.New())
+	service := NewHandler(inmemory.New())
 
 	err := service.RegisterFeature(
 		&flipd.RegisterFeatureRequest{

@@ -12,14 +12,14 @@ import (
 //  - InternalErrorException is thrown for unexpected errors
 //  - InvalidInputException is thrown if the feature is not provided
 //  - NotFoundException is thrown if the feature could not be found
-func (f *Flipd) DeregisterFeature(request *flipd.DeregisterFeatureRequest) error {
+func (h *Handler) DeregisterFeature(request *flipd.DeregisterFeatureRequest) error {
 	if !request.IsSetKey() {
 		return &flipd.InvalidInputException{
 			Message: goptr.String("required key object not set"),
 		}
 	}
 
-	err := f.storage.Deregister(goptr.String(string(request.GetKey())))
+	err := h.storage.Deregister(goptr.String(string(request.GetKey())))
 	if err != nil {
 		switch {
 		case storage.IsErrNotFound(err):

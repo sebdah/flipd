@@ -3,7 +3,7 @@ package thrift
 import "testing"
 
 func TestPing(t *testing.T) {
-	service := NewFlipd(nil)
+	service := NewHandler(nil)
 	response, err := service.Ping()
 
 	if err != nil {

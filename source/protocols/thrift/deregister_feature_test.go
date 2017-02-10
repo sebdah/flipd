@@ -40,7 +40,7 @@ func TestDeregisterFeature(t *testing.T) {
 			_ = backend.Register(feature)
 		}
 
-		service := NewFlipd(backend)
+		service := NewHandler(backend)
 
 		err := service.DeregisterFeature(&flipd.DeregisterFeatureRequest{Key: flipd.KeyPtr(flipd.Key(test.key))})
 		if err != nil {
