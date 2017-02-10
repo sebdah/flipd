@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 
 	"github.com/Sirupsen/logrus"
 	"github.com/apache/thrift/lib/go/thrift"
@@ -11,7 +12,15 @@ import (
 )
 
 func init() {
+	flag.StringVar(&config.Environment, "environment", os.Getenv("APP_ENV"), "Application environment name")
+	flag.StringVar(&config.Address, "address", "localhost", "Address the service should bind to")
+	flag.IntVar(&config.Port, "port", 9090, "Port number the service should bind to")
+	flag.StringVar(&config.LogLevel, "log-level", "debug", "Log level used in the application")
 	flag.Parse()
+
+	if config.Environment == "" {
+		Environment = "development"
+	}
 
 	logLevel, err := logrus.ParseLevel(config.LogLevel)
 	if err != nil {
@@ -21,7 +30,10 @@ func init() {
 }
 
 func main() {
-	logrus.WithFields(logrus.Fields{"environment": config.Environment}).Info("Starting flipd")
+	logrus.WithFields(logrus.Fields{
+		"environment": config.Environment
+		"port": config.Port,
+	}).Info("Starting flipd")
 
 	storage := inmemory.New()
 
