@@ -13,7 +13,7 @@ import (
 
 func init() {
 	flag.StringVar(&config.Environment, "environment", os.Getenv("APP_ENV"), "Application environment name")
-	flag.StringVar(&config.Address, "address", "localhost", "Address the service should bind to")
+	flag.StringVar(&config.Host, "host", "localhost", "Host name the service should bind to")
 	flag.IntVar(&config.Port, "port", 9090, "Port number the service should bind to")
 	flag.StringVar(&config.LogLevel, "log-level", "debug", "Log level used in the application")
 	flag.Parse()
@@ -31,15 +31,15 @@ func init() {
 
 func main() {
 	logrus.WithFields(logrus.Fields{
-		"environment": config.Environment
-		"port": config.Port,
+		"environment": config.Environment,
+		"port":        config.Port,
 	}).Info("Starting flipd")
 
 	storage := inmemory.New()
 
 	transportFactory := thrift.NewTTransportFactory()
 	protocolFactory := thrift.NewTBinaryProtocolFactoryDefault()
-	address := fmt.Sprintf("%s:%d", config.Address, config.Port)
+	address := fmt.Sprintf("%s:%d", config.Host, config.Port)
 	secure := false
 
 	if err := runServer(transportFactory, protocolFactory, address, secure, storage); err != nil {

@@ -5,8 +5,8 @@ var (
 	// "test" or "production".
 	Environment string
 
-	// Address the service should bind to.
-	Address string
+	// Host the service should bind to.
+	Host string
 
 	// Port is the port number the service should bind to.
 	Port int
