@@ -1,0 +1,23 @@
+{
+  "feature": {
+    "description": "A feature is an feature entity which you can control the status of",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "key": { "$ref": "#/key" },
+      "status": { "$ref": "#/status" }
+    }
+  },
+  "key": {
+    "description": "Key is a unique identifier for a feature",
+    "type": "string"
+  },
+  "status": {
+    "description": "Status represents a feature status, such as enabled or disabled",
+    "type": "string",
+    "enum": [
+      "enabled",
+      "disabled"
+    ]
+  }
+}

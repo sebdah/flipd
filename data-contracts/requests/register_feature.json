@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "POST /features [request]",
+  "description": "Register a new feature in the system",
+
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "feature": { "$ref": "../definitions.json#/feature" }
+  }
+}

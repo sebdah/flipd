@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DELETE /features/:key [request]",
+  "description": "Deregister a feature from the system",
+
+  "additionalProperties": false
+}
