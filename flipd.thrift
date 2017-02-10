@@ -4,6 +4,7 @@ namespace go flipd
 *                       Types
 /*****************************************************/
 
+// Key is the unique identifier for a certain feature.
 typedef string Key
 
 /******************************************************
