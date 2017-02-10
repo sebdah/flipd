@@ -14,7 +14,7 @@ import (
 //  - InternalErrorException is thrown for unexpected errors
 //  - InvalidInputException is thrown if the feature is not provided
 //  - DuplicateException is thrown if the feature is already added
-func (f *Flipd) RegisterFeature(request *flipd.RegisterFeatureRequest) error {
+func (h *Handler) RegisterFeature(request *flipd.RegisterFeatureRequest) error {
 	if request.Feature == nil {
 		return &flipd.InvalidInputException{
 			Message: goptr.String("required feature object not set"),
@@ -24,7 +24,7 @@ func (f *Flipd) RegisterFeature(request *flipd.RegisterFeatureRequest) error {
 	feature := types.NewFeature()
 	feature.DeserializeThrift(request.Feature)
 
-	err := f.storage.Register(feature)
+	err := h.storage.Register(feature)
 	if err != nil {
 		switch {
 		case storage.IsErrDuplicate(err):

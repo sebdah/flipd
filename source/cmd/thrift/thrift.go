@@ -30,7 +30,7 @@ func runServer(transportFactory thrift.TTransportFactory, protocolFactory thrift
 		return err
 	}
 
-	processor := flipd.NewFlipdProcessor(T.NewFlipd(storage))
+	processor := flipd.NewFlipdProcessor(T.NewHandler(storage))
 	server := thrift.NewTSimpleServer4(processor, transport, transportFactory, protocolFactory)
 
 	logrus.WithFields(logrus.Fields{"address": addr}).Info("Starting Thrift server")

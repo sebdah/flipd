@@ -10,14 +10,14 @@ import (
 //
 // Exceptions:
 //  - InternalErrorException is thrown for unexpected errors
-func (f *Flipd) GetFeatures(request *flipd.GetFeaturesRequest) (*flipd.GetFeaturesResponse, error) {
+func (h *Handler) GetFeatures(request *flipd.GetFeaturesRequest) (*flipd.GetFeaturesResponse, error) {
 	var err error
 	var response = flipd.NewGetFeaturesResponse()
 
 	if request.IsSetKeys() {
-		err = f.getFilteredKeys(request.GetKeys(), response)
+		err = h.getFilteredKeys(request.GetKeys(), response)
 	} else {
-		err = f.getAllKeys(response)
+		err = h.getAllKeys(response)
 	}
 
 	if err != nil {
@@ -29,8 +29,8 @@ func (f *Flipd) GetFeatures(request *flipd.GetFeaturesRequest) (*flipd.GetFeatur
 
 // getAllKeys is a helper method fetching all keys from the data store and
 // populating the response object.
-func (f *Flipd) getAllKeys(response *flipd.GetFeaturesResponse) error {
-	features, err := f.storage.GetAll()
+func (h *Handler) getAllKeys(response *flipd.GetFeaturesResponse) error {
+	features, err := h.storage.GetAll()
 	if err != nil {
 		return &flipd.InternalErrorException{Message: goptr.String(err.Error())}
 	}
@@ -49,9 +49,9 @@ func (f *Flipd) getAllKeys(response *flipd.GetFeaturesResponse) error {
 
 // getFilteredKeys is a helper method fetching selected keys from the data
 // store and populating the response object.
-func (f *Flipd) getFilteredKeys(keys []string, response *flipd.GetFeaturesResponse) error {
+func (h *Handler) getFilteredKeys(keys []string, response *flipd.GetFeaturesResponse) error {
 	for _, key := range keys {
-		feature, err := f.storage.Get(&key)
+		feature, err := h.storage.Get(&key)
 		if err != nil {
 			if !storage.IsErrNotFound(err) {
 				return &flipd.InternalErrorException{Message: goptr.String(err.Error())}
