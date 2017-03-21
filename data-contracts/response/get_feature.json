@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "GET /features/:key [200 response]",
+  "description": "Fetch a feature by it's key",
+
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "feature": { "$ref": "../definitions.json#/feature" }
+  }
+}
