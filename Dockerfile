@@ -8,7 +8,10 @@ RUN mkdir -p /go/src/github.com/sebdah/flipd/ && \
 
 ADD . /go/src/github.com/sebdah/flipd/
 WORKDIR /go/src/github.com/sebdah/flipd/
-RUN go build -o /go/bin/flipd ./source/cmd/thrift
+
+RUN go build -o /go/bin/flipd-thrift ./source/cmd/thrift
+RUN go build -o /go/bin/flipd-http ./source/cmd/http
 
 EXPOSE 9090
-CMD ["/go/bin/flipd"]
+
+CMD ["true"]
