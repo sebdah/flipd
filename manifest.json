@@ -1,0 +1,19 @@
+{
+    "dependencies": {
+        "github.com/Sirupsen/logrus": {
+            "branch": "master"
+        },
+        "github.com/agrea/goptr": {
+            "branch": "master"
+        },
+        "github.com/apache/thrift": {
+            "revision": "99255de85759f66e957ba8f3d9e2a2b4c8b00c0f"
+        },
+        "github.com/go-zoo/bone": {
+            "branch": "master"
+        },
+        "github.com/stretchr/testify": {
+            "branch": "master"
+        }
+    }
+}

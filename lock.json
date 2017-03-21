@@ -1,0 +1,68 @@
+{
+    "memo": "dd92382222f32f388b4a5aeaa3b5d6dca3fefd73ffa5373c71695a2d552b7ae8",
+    "projects": [
+        {
+            "name": "github.com/Sirupsen/logrus",
+            "branch": "master",
+            "revision": "10f801ebc38b33738c9d17d50860f484a0988ff5",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/agrea/goptr",
+            "branch": "master",
+            "revision": "3e17dea3d07f320299445eb7e8f1d1a0c3b35c09",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/apache/thrift",
+            "revision": "99255de85759f66e957ba8f3d9e2a2b4c8b00c0f",
+            "packages": [
+                "lib/go/thrift"
+            ]
+        },
+        {
+            "name": "github.com/davecgh/go-spew",
+            "version": "v1.1.0",
+            "revision": "346938d642f2ec3594ed81d874461961cd0faa76",
+            "packages": [
+                "spew"
+            ]
+        },
+        {
+            "name": "github.com/go-zoo/bone",
+            "branch": "master",
+            "revision": "11ae278a93c8268a0f98758aa915def5dfca3254",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/pmezard/go-difflib",
+            "version": "v1.0.0",
+            "revision": "792786c7400a136282c1664665ae0a8db921c6c2",
+            "packages": [
+                "difflib"
+            ]
+        },
+        {
+            "name": "github.com/stretchr/testify",
+            "branch": "master",
+            "revision": "4d4bfba8f1d1027c4fdbe371823030df51419987",
+            "packages": [
+                "assert"
+            ]
+        },
+        {
+            "name": "golang.org/x/sys",
+            "branch": "master",
+            "revision": "99f16d856c9836c42d24e7ab64ea72916925fa97",
+            "packages": [
+                "unix"
+            ]
+        }
+    ]
+}

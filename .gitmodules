@@ -1,9 +1,0 @@
-[submodule "vendor/github.com/Sirupsen/logrus"]
-	path = vendor/github.com/Sirupsen/logrus
-	url = https://github.com/Sirupsen/logrus
-[submodule "vendor/github.com/apache/thrift"]
-	path = vendor/github.com/apache/thrift
-	url = https://github.com/apache/thrift
-[submodule "vendor/github.com/agrea/goptr"]
-	path = vendor/github.com/agrea/goptr
-	url = https://github.com/agrea/goptr

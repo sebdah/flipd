@@ -10,17 +10,10 @@ Feature flipper service implemented in [Go](https://golang.org/).
 
 ### Dependencies
 
-The dependencies are maintained via git submodules in the `vendor` folder. To
-fetch all dependencies, run
+The dependencies are maintained via [go dep](https://github.com/golang/dep). To
+get all the dependencies, run
 
-    git submodule update --init --recursive
-
-We are using [vendetta](https://github.com/dpw/vendetta) for maintaining the
-dependencies. Use it like this:
-
- - `vendetta` - Vendorize your new dependencies
- - `vendetta -p` - Remove unused dependencies
- - `vendetta -u` - Upgrade dependencies
+	dep ensure
 
 ### Running tests
 
