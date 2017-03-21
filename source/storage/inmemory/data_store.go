@@ -18,9 +18,9 @@ func New() *DataStore { return &DataStore{} }
 //
 // Exceptions:
 //  - NotFound error thrown if the key does not exist
-func (d *DataStore) Deregister(key *string) error {
+func (d *DataStore) Deregister(key string) error {
 	for i, f := range d.features {
-		if *key == f.Key {
+		if key == f.Key {
 			d.features = append(d.features[:i], d.features[i+1:]...)
 			return nil
 		}
@@ -33,9 +33,9 @@ func (d *DataStore) Deregister(key *string) error {
 //
 // Exceptions:
 //  - NotFound error thrown if the key does not exist
-func (d *DataStore) Get(key *string) (*types.Feature, error) {
+func (d *DataStore) Get(key string) (*types.Feature, error) {
 	for _, f := range d.features {
-		if f.Key == *key {
+		if f.Key == key {
 			return &f, nil
 		}
 	}
@@ -75,10 +75,10 @@ func (d *DataStore) Register(feature *types.Feature) error {
 //
 // Exceptions:
 //  - NotFound error thrown if the key does not exist
-func (d *DataStore) SetStatus(key *string, status *int64) error {
+func (d *DataStore) SetStatus(key string, status int64) error {
 	for i := range d.features {
-		if d.features[i].Key == *key {
-			d.features[i].Status = *status
+		if d.features[i].Key == key {
+			d.features[i].Status = status
 			return nil
 		}
 	}

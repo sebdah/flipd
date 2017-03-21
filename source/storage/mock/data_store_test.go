@@ -32,7 +32,7 @@ func TestNew(t *testing.T) {
 
 	for _, test := range tests {
 		store := New()
-		feature, err := store.Get(&test.key)
+		feature, err := store.Get(test.key)
 		assert.Nil(t, err)
 		assert.Equal(t, test.status, feature.Status)
 	}

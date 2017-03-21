@@ -51,7 +51,7 @@ func (h *Handler) getAllKeys(response *flipd.GetFeaturesResponse) error {
 // store and populating the response object.
 func (h *Handler) getFilteredKeys(keys []string, response *flipd.GetFeaturesResponse) error {
 	for _, key := range keys {
-		feature, err := h.storage.Get(&key)
+		feature, err := h.storage.Get(key)
 		if err != nil {
 			if !storage.IsErrNotFound(err) {
 				return &flipd.InternalErrorException{Message: goptr.String(err.Error())}

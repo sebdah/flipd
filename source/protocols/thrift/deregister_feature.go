@@ -19,7 +19,7 @@ func (h *Handler) DeregisterFeature(request *flipd.DeregisterFeatureRequest) err
 		}
 	}
 
-	err := h.storage.Deregister(goptr.String(string(request.GetKey())))
+	err := h.storage.Deregister(string(request.GetKey()))
 	if err != nil {
 		switch {
 		case storage.IsErrNotFound(err):

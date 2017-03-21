@@ -3,7 +3,6 @@ package inmemory
 import (
 	"testing"
 
-	"github.com/agrea/goptr"
 	"github.com/sebdah/flipd/source/storage"
 	"github.com/sebdah/flipd/source/types"
 )
@@ -40,7 +39,7 @@ func TestDeregisterFeature(t *testing.T) {
 			dataStore.Register(feature)
 		}
 
-		err := dataStore.Deregister(goptr.String(test.key))
+		err := dataStore.Deregister(test.key)
 		if err != test.expectedErr {
 			switch {
 			case test.expectedErr == nil:
@@ -50,7 +49,7 @@ func TestDeregisterFeature(t *testing.T) {
 			}
 		}
 
-		_, err = dataStore.Get(goptr.String(test.key))
+		_, err = dataStore.Get(test.key)
 		if !storage.IsErrNotFound(err) {
 			t.Errorf("expected %s, got %s", storage.ErrNotFound.Error(), err.Error())
 		}
@@ -88,7 +87,7 @@ func TestGetFeature(t *testing.T) {
 			dataStore.Register(feature)
 		}
 
-		feature, err := dataStore.Get(goptr.String(test.key))
+		feature, err := dataStore.Get(test.key)
 		if err != test.expectedErr {
 			switch {
 			case test.expectedErr == nil:
@@ -200,7 +199,7 @@ func TestSetStatus(t *testing.T) {
 			dataStore.Register(feature)
 		}
 
-		err := dataStore.SetStatus(goptr.String(test.key), goptr.Int64(test.status))
+		err := dataStore.SetStatus(test.key, test.status)
 		if err != test.expectedErr {
 			switch {
 			case test.expectedErr == nil:
@@ -211,7 +210,7 @@ func TestSetStatus(t *testing.T) {
 		}
 
 		if test.expectedErr == nil {
-			feature, err := dataStore.Get(goptr.String(test.key))
+			feature, err := dataStore.Get(test.key)
 			if err != nil {
 				t.Errorf("expected nil, got %s", err.Error())
 			}
