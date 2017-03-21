@@ -1,11 +1,17 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "GET /features/:key [200 response]",
-  "description": "Fetch a feature by it's key",
+  "title": "GET /features [200 response]",
+  "description": "Fetch all features",
 
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "feature": { "$ref": "../definitions.json#/feature" }
+    "features": {
+      "description": "List of all features",
+      "type": "array",
+      "minItems": 0,
+      "uniqueItems": true,
+      "items": { "$ref": "../definitions.json#/feature" }
+    }
   }
 }
