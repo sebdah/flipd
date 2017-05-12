@@ -54,7 +54,8 @@ func TestGetFeatures(t *testing.T) {
 		h.ServeHTTP(recorder, req)
 
 		response := &getFeaturesResponse{}
-		json.NewDecoder(recorder.Body).Decode(response)
+		err = json.NewDecoder(recorder.Body).Decode(response)
+		assert.Nil(t, err)
 
 		assert.Equal(t, len(test.features), len(response.Features))
 

@@ -50,6 +50,7 @@ func main() {
 	api := httpapi.NewHandler(storageBackend)
 
 	mux := bone.New()
+	assert.Nil(t, err)
 	mux.Get("/features", http.HandlerFunc(api.GetFeatures))
 
 	err := http.ListenAndServe(address, mux)
